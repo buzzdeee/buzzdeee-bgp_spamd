@@ -1,0 +1,9 @@
+#!/bin/sh
+AS=65066
+
+bgpctl show rib community ${AS}:666 | awk '{print $2}' | \
+        sed 's/\/.*$//' > /var/mail/spamd.black
+
+/usr/libexec/spamd-setup
+
+# EOF

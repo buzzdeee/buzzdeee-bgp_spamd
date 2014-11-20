@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>My Index</title>
+</head>
+<body>
+
+If you do not want to get in contact with me, send to one of the following addresses:<br/>
+<% if @spamtraps.is_a? Array -%>
+<% @spamtraps.each do |trap| -%>
+<a href="mailto:<%= trap %>"><%= trap %></a><br/>
+<% end -%>
+<% elsif @spamtraps != '' -%>
+<a href="mailto:<%= @spamtraps %>"><%= @spamtraps %></a><br/>
+<% end -%>
+
+</body>

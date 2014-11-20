@@ -1,0 +1,16 @@
+spamdAS="65066"
+
+AS <%= @asnumber %>
+fib-update no    # Mandatory, to not update the local routing table
+
+group "spamd-bgp" {
+        remote-as $spamdAS
+        multihop 64
+        announce none	# Do not send Route Server any information
+
+	# rs.bgp-spamd.net
+        neighbor 64.142.121.62
+}
+
+# 'match' is required, to remove entries when routes are withdrawn
+match from group spamd-bgp community $spamdAS:42  set pftable "<%= @pftable %>"

@@ -53,8 +53,6 @@ class bgp_spamd (
     spamtraps => $spamtraps,
   }
 
-  class { 'bgp_spamd::cron': }
-
   class { 'bgp_spamd::spamtraps': 
     spamtraps => $spamtraps,
   }
@@ -73,7 +71,6 @@ class bgp_spamd (
 
   Class['bgp_spamd::config'] -> 
   Class['bgp_spamd::service'] ->
-  Class['bgp_spamd::spamtraps'] ->
-  Class['bgp_spamd::cron']
+  Class['bgp_spamd::spamtraps']
 
 }

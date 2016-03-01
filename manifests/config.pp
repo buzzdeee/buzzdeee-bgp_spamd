@@ -27,7 +27,6 @@ class bgp_spamd::config (
     owner   => 'root',
     group   => '0',
     mode    => '0640',
-    content => template("bgp_spamd/nospamd.erb")
   }
   file { '/etc/hostname.pflog1':
     ensure  => 'present',
@@ -36,6 +35,13 @@ class bgp_spamd::config (
     mode    => '0640',
     content => "up\n",
     notify  => Exec['start pflog1'],
+  }
+
+  file { '/usr/local/bin/bgp-spamd-update.sh':
+    owner   => 'root',
+    group   => '0',
+    mode    => '0750',
+    content => template("bgp_spamd/bgp-spamd-update.sh.erb"),
   }
 
   file { '/var/www/htdocs/index.html':
@@ -47,6 +53,11 @@ class bgp_spamd::config (
   exec { 'start pflog1':
     command     => '/bin/sh /etc/netstart pflog1',
     refreshonly => true,
+  }
+
+  cron { 'send greylisted mails':
+    command => '/usr/sbin/spamdb | grep GREY | grep -v "<sebastia@l00-bugdead-prods.de>" | sort -t "|" -k 5',
+    minute  => '55',
   }
 
   exec { 'reload pf':

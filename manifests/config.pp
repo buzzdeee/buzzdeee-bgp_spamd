@@ -24,6 +24,7 @@ class bgp_spamd::config (
     content => template("bgp_spamd/pf.conf.erb")
   }
   file { '/etc/mail/nospamd':
+    ensure  => 'file',
     owner   => 'root',
     group   => '0',
     mode    => '0640',

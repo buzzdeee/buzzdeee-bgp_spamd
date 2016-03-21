@@ -1,6 +1,10 @@
-<%- if @spamd_whitelist @spamd_whitelist.each do |entry| -%>
+<%- if @spamd_whitelist -%>
+  <%- @spamd_whitelist.each do |entry| -%>
 <%= entry %>
+  <%- end -%>
 <%- end -%>
-<%- if @bruteforce_whitelist @bruteforce_whitelist.each do |entry| -%>
+<%- if @bruteforce_whitelist -%>
+  <%- @bruteforce_whitelist.each do |entry| -%>
 <%= entry %>
+  <%- end -%>
 <%- end -%>

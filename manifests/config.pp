@@ -74,6 +74,6 @@ class bgp_spamd::config (
   exec { 'reload pf':
     command => '/sbin/pfctl -f /etc/pf.conf',
     refreshonly => true,
-    subscribe => [File['/etc/pf.conf'], File['/etc/mail/nospamd']],
+    subscribe => [File['/etc/pf.conf'], File['/etc/mail/nospamd'], File['/etc/nobruteforce']],
   }
 }

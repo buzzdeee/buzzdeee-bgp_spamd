@@ -2,6 +2,8 @@ class bgp_spamd::config (
   $asnumber,
   $pftable,
   $spamtraps,
+  $spamd_whitelist,
+  $bruteforce_whitelist,
 ){
   file { '/etc/bgpd.conf':
     owner   => 'root',
@@ -28,7 +30,15 @@ class bgp_spamd::config (
     owner   => 'root',
     group   => '0',
     mode    => '0640',
+    content => template('bgp_spamd/iplist.erb'),
   }
+  file { '/etc/nobruteforce':
+    owner   => 'root',
+    group   => '0',
+    mode    => '0640',
+    content => template('bgp_spamd/iplist.erb'),
+  }
+
   file { '/etc/hostname.pflog1':
     ensure  => 'present',
     owner   => 'root',

@@ -7,6 +7,7 @@ table <bruteforce> persist
 table <spamd-white> persist
 table <spamd> persist
 table <nospamd> persist file "/etc/mail/nospamd"
+table <nobruteforce> persist file "/etc/nobruteforce"
 
 table <siphackers> const { 188.138.125.46, 176.58.71.201, 162.210.199.45, 119.235.252.189, 91.218.247.151, 64.182.128.5 }
 
@@ -28,7 +29,8 @@ pass in quick on egress proto tcp from any to self port smtp \
 pass out log (to pflog1) on egress proto tcp to any port smtp
 
 # Adaptive rule to block SSH bruteforcers
-pass in quick inet proto tcp from any to self port ssh keep state (max-src-conn 5, max-src-conn-rate 3/30, overload <bruteforce> flush global)
+pass in log quick on egress proto tcp from <nobruteforce> to self port ssh
+pass in log quick inet proto tcp from any to self port ssh keep state (max-src-conn 5, max-src-conn-rate 3/30, overload <bruteforce> flush global)
 
 # By default, do not permit remote connections to X11
 block in on ! lo0 proto tcp to port 6000:6010

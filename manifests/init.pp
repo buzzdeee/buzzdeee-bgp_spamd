@@ -36,21 +36,25 @@
 # Copyright 2014 Your name here, unless otherwise noted.
 #
 class bgp_spamd (
-  $spamtraps = undef,
-  $asnumber = $::bgp_spamd::asnumber,
-  $pftable  = $::bgp_spamd::pftable,
-  $bgpd_enable = $::bgp_spamd::bgpd_enable,
-  $bgpd_ensure = $::bgp_spamd::bgpd_ensure,
-  $bgpd_flags   = $::bgp_spamd::bgpd_flags,
-  $spamd_enable = $::bgp_spamd::spamd_enable,
-  $spamd_ensure = $::bgp_spamd::spamd_ensure,
-  $spamd_flags  = $::bgp_spamd::spamd_flags,
+  $asnumber             = $::bgp_spamd::asnumber,
+  $pftable              = $::bgp_spamd::pftable,
+  $bgpd_enable          = $::bgp_spamd::bgpd_enable,
+  $bgpd_ensure          = $::bgp_spamd::bgpd_ensure,
+  $bgpd_flags           = $::bgp_spamd::bgpd_flags,
+  $spamd_enable         = $::bgp_spamd::spamd_enable,
+  $spamd_ensure         = $::bgp_spamd::spamd_ensure,
+  $spamd_flags          = $::bgp_spamd::spamd_flags,
+  $spamtraps            = undef,
+  $bruteforce_whitelist = undef,
+  $spamd_whitelist      = undef,
 ) inherits bgp_spamd::params {
 
   class { 'bgp_spamd::config':
-    asnumber  => $asnumber,
-    pftable   => $pftable,
-    spamtraps => $spamtraps,
+    asnumber             => $asnumber,
+    pftable              => $pftable,
+    spamtraps            => $spamtraps,
+    bruteforce_whitelist => $bruteforce_whitelist,
+    spamd_whitelist      => $spamd_whitelist,
   }
 
   class { 'bgp_spamd::spamtraps': 

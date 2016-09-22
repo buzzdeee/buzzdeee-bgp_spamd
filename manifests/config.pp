@@ -1,3 +1,5 @@
+# This class takes care of the configuration
+
 class bgp_spamd::config (
   $asnumber,
   $pftable,
@@ -9,21 +11,21 @@ class bgp_spamd::config (
     owner   => 'root',
     group   => '0',
     mode    => '0600',
-    content => template("bgp_spamd/bgpd.conf.erb")
+    content => template('bgp_spamd/bgpd.conf.erb')
   }
 
   file { '/etc/mail/spamd.conf':
     owner   => 'root',
     group   => '0',
     mode    => '0644',
-    content => template("bgp_spamd/spamd.conf.erb")
+    content => template('bgp_spamd/spamd.conf.erb')
   }
 
   file { '/etc/pf.conf':
     owner   => 'root',
     group   => '0',
     mode    => '0640',
-    content => template("bgp_spamd/pf.conf.erb")
+    content => template('bgp_spamd/pf.conf.erb')
   }
   file { '/etc/mail/nospamd':
     ensure  => 'file',
@@ -52,7 +54,7 @@ class bgp_spamd::config (
     owner   => 'root',
     group   => '0',
     mode    => '0750',
-    content => template("bgp_spamd/bgp-spamd-update.sh.erb"),
+    content => template('bgp_spamd/bgp-spamd-update.sh.erb'),
   }
 
   file { '/var/www/htdocs/index.html':
@@ -72,8 +74,8 @@ class bgp_spamd::config (
   }
 
   exec { 'reload pf':
-    command => '/sbin/pfctl -f /etc/pf.conf',
+    command     => '/sbin/pfctl -f /etc/pf.conf',
     refreshonly => true,
-    subscribe => [File['/etc/pf.conf'], File['/etc/mail/nospamd'], File['/etc/nobruteforce']],
+    subscribe   => [File['/etc/pf.conf'], File['/etc/mail/nospamd'], File['/etc/nobruteforce']],
   }
 }

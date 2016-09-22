@@ -1,3 +1,5 @@
+# This class takes care of the 
+# default values
 class bgp_spamd::params {
   $asnumber = 65001
   $pftable  = bgp-spamd-bypass

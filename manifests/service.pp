@@ -1,3 +1,4 @@
+# This class takes care of the service
 class bgp_spamd::service (
   $bgpd_ensure,
   $bgpd_enable,

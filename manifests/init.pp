@@ -47,6 +47,7 @@ class bgp_spamd (
   $spamlogd_enable      = $::bgp_spamd::params::spamlogd_enable,
   $spamlogd_ensure      = $::bgp_spamd::params::spamlogd_ensure,
   $spamlogd_flags       = $::bgp_spamd::params::spamlogd_flags,
+  $spamd_alloweddomains = [],
   $spamtraps            = undef,
   $bruteforce_whitelist = undef,
   $spamd_whitelist      = undef,
@@ -58,6 +59,7 @@ class bgp_spamd (
     spamtraps            => $spamtraps,
     bruteforce_whitelist => $bruteforce_whitelist,
     spamd_whitelist      => $spamd_whitelist,
+    spamd_alloweddomains => $spamd_alloweddomains,
   }
 
   class { 'bgp_spamd::spamtraps':
@@ -76,7 +78,7 @@ class bgp_spamd (
     spamlogd_flags  => $spamlogd_flags,
   }
 
-  Class['bgp_spamd::config'] ->
+  Class['bgp_spamd::config'] ~>
   Class['bgp_spamd::service'] ->
   Class['bgp_spamd::spamtraps']
 

@@ -6,6 +6,7 @@ class bgp_spamd::config (
   $spamtraps,
   $spamd_whitelist,
   $bruteforce_whitelist,
+  $spamd_alloweddomains,
 ){
   file { '/etc/bgpd.conf':
     owner   => 'root',
@@ -26,6 +27,20 @@ class bgp_spamd::config (
     group   => '0',
     mode    => '0640',
     content => template('bgp_spamd/pf.conf.erb')
+  }
+
+  if empty($spamd_alloweddomains) {
+    file { '/etc/mail/spamd.alloweddomains':
+      ensure => 'absent',
+    }
+  } else {
+    file { '/etc/mail/spamd.alloweddomains':
+      ensure  => 'file',
+      owner   => 'root',
+      group   => '0',
+      mode    => '0640',
+      content => template('bgp_spamd/spamd.alloweddomains.erb'),
+    }
   }
   file { '/etc/mail/nospamd':
     ensure  => 'file',

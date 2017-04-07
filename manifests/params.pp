@@ -2,7 +2,7 @@
 # default values
 class bgp_spamd::params {
   $asnumber = 65001
-  $pftable  = bgp-spamd-bypass
+  $pftable  = 'bgp-spamd-bypass'
   $bgpd_enable = true
   $bgpd_ensure = 'running'
   $bgpd_flags   = ''

@@ -36,21 +36,22 @@
 # Copyright 2014 Your name here, unless otherwise noted.
 #
 class bgp_spamd (
-  $asnumber             = $::bgp_spamd::params::asnumber,
-  $pftable              = $::bgp_spamd::params::pftable,
-  $bgpd_enable          = $::bgp_spamd::params::bgpd_enable,
-  $bgpd_ensure          = $::bgp_spamd::params::bgpd_ensure,
-  $bgpd_flags           = $::bgp_spamd::params::bgpd_flags,
-  $spamd_enable         = $::bgp_spamd::params::spamd_enable,
-  $spamd_ensure         = $::bgp_spamd::params::spamd_ensure,
-  $spamd_flags          = $::bgp_spamd::params::spamd_flags,
-  $spamlogd_enable      = $::bgp_spamd::params::spamlogd_enable,
-  $spamlogd_ensure      = $::bgp_spamd::params::spamlogd_ensure,
-  $spamlogd_flags       = $::bgp_spamd::params::spamlogd_flags,
-  $spamd_alloweddomains = [],
-  $spamtraps            = [],
-  $bruteforce_whitelist = undef,
-  $spamd_whitelist      = undef,
+  Integer $asnumber           = $::bgp_spamd::params::asnumber,
+  String $pftable             = $::bgp_spamd::params::pftable,
+  Boolean $bgpd_enable        = $::bgp_spamd::params::bgpd_enable,
+  String $bgpd_ensure         = $::bgp_spamd::params::bgpd_ensure,
+  String $bgpd_flags          = $::bgp_spamd::params::bgpd_flags,
+  Boolean $spamd_enable       = $::bgp_spamd::params::spamd_enable,
+  String $spamd_ensure        = $::bgp_spamd::params::spamd_ensure,
+  String $spamd_flags         = $::bgp_spamd::params::spamd_flags,
+  Boolean $spamlogd_enable    = $::bgp_spamd::params::spamlogd_enable,
+  String $spamlogd_ensure     = $::bgp_spamd::params::spamlogd_ensure,
+  String $spamlogd_flags      = $::bgp_spamd::params::spamlogd_flags,
+
+  Array $spamd_alloweddomains = [],
+  Array $spamtraps            = [],
+  Array $bruteforce_whitelist = [],
+  Array $spamd_whitelist      = [],
 ) inherits bgp_spamd::params {
 
   class { 'bgp_spamd::config':

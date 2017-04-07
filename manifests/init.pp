@@ -79,8 +79,8 @@ class bgp_spamd (
     spamlogd_flags  => $spamlogd_flags,
   }
 
-  Class['bgp_spamd::config'] ~>
-  Class['bgp_spamd::service'] ->
-  Class['bgp_spamd::spamtraps']
+  Class['bgp_spamd::config']
+  ~> Class['bgp_spamd::service']
+  -> Class['bgp_spamd::spamtraps']
 
 }

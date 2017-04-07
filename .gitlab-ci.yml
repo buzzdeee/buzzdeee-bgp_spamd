@@ -2,6 +2,10 @@ stages:
   - test
   - deploy
 
+puppet-lint:
+  script:
+    - puppet-lint23 manifests
+  stage: test
 
 rake-test:
   script:

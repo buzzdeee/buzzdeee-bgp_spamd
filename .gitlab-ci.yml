@@ -1,0 +1,16 @@
+stages:
+  - test
+  - deploy
+
+
+rake-test:
+  script:
+    - rake23 spec SPEC_OPTS='--format documentation'
+  stage: test
+
+deploy:
+  script:
+    - sudo /usr/local/bin/r10k23 deploy module bgp_spamd -v
+  stage: deploy
+  only:
+    - master

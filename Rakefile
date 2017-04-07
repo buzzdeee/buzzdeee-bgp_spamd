@@ -1,4 +1,5 @@
 require 'rspec-puppet/rake_task'
+require 'puppetlabs_spec_helper/rake_tasks'
 
 begin
   if Gem::Specification::find_by_name('puppet-lint')

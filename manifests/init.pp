@@ -48,7 +48,7 @@ class bgp_spamd (
   $spamlogd_ensure      = $::bgp_spamd::params::spamlogd_ensure,
   $spamlogd_flags       = $::bgp_spamd::params::spamlogd_flags,
   $spamd_alloweddomains = [],
-  $spamtraps            = undef,
+  $spamtraps            = [],
   $bruteforce_whitelist = undef,
   $spamd_whitelist      = undef,
 ) inherits bgp_spamd::params {

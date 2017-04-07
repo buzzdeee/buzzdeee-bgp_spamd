@@ -2,19 +2,29 @@ stages:
   - test
   - deploy
 
+variables:
+  RUBYSUFFIX: '23'
+
 puppet-lint:
   script:
-    - puppet-lint23 manifests
+    - "puppet-lint$RUBYSUFFIX --relative manifest"
+  stage: test
+
+template-test:
+  script:
+    - "if [ -d templates ];then"
+    - "erb$RUBYSUFFIX -x -T '-' templates/*erb | ruby$RUBYSUFFIX -c"
+    - "fi"
   stage: test
 
 rake-test:
   script:
-    - rake23 spec SPEC_OPTS='--format documentation'
+    - "rake$RUBYSUFFIX spec SPEC_OPTS='--format documentation'"
   stage: test
 
 deploy:
   script:
-    - sudo /usr/local/bin/r10k23 deploy module bgp_spamd -v
+    - "sudo /usr/local/bin/r10k${RUBYSUFFIX} deploy module bgp_spamd -v"
   stage: deploy
   only:
     - master

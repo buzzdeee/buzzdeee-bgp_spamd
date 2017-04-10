@@ -7,7 +7,7 @@ variables:
 
 puppet-lint:
   script:
-    - "puppet-lint${RUBYSUFFIX} manifest"
+    - "puppet-lint${RUBYSUFFIX} --relative --fail-on-warnings --with-filename --with-context manifests"
   stage: test
 
 template-test:
@@ -28,3 +28,4 @@ deploy:
   stage: deploy
   only:
     - master
+

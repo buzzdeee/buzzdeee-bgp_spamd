@@ -7,13 +7,13 @@ variables:
 
 puppet-lint:
   script:
-    - "puppet-lint$RUBYSUFFIX --relative manifest"
+    - "puppet-lint${RUBYSUFFIX} --relative manifest"
   stage: test
 
 template-test:
   script:
     - "if [ -d templates ];then"
-    - "erb$RUBYSUFFIX -x -T '-' templates/*erb | ruby$RUBYSUFFIX -c"
+    - 'erb$RUBYSUFFIX -x -T '-' templates/*erb | ruby${RUBYSUFFIX} -c'
     - "fi"
   stage: test
 

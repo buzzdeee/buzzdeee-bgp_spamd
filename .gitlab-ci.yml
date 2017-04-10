@@ -7,7 +7,7 @@ variables:
 
 puppet-lint:
   script:
-    - "puppet-lint${RUBYSUFFIX} --relative manifest"
+    - "puppet-lint${RUBYSUFFIX} manifest"
   stage: test
 
 template-test:

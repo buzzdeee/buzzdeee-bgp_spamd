@@ -8,7 +8,9 @@ fib-update no    # Mandatory, to not update the local routing table
 group "spamd-bgp" {
         remote-as $spamdAS
         multihop 64
+	<%- if @os['release']['full'] < "6.5" %>
         announce none	# Do not send Route Server any information
+	<%- end %>
 
 	# rs.bgp-spamd.net
         neighbor 64.142.121.62

@@ -5,7 +5,7 @@ class bgp_spamd::params {
   $pftable  = 'bgp-spamd-bypass'
   $bgpd_enable = true
   $bgpd_ensure = 'running'
-  $bgpd_flags   = ''
+  $bgpd_flags   = undef
   $spamd_enable = true
   $spamd_ensure = 'running'
   $spamd_flags  = ''

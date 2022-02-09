@@ -10,11 +10,11 @@ class bgp_spamd::service (
   $spamlogd_enable,
   $spamlogd_flags,
 ) {
-  service { 'bgpd':
-    ensure => $bgpd_ensure,
-    enable => $bgpd_enable,
-    flags  => $bgpd_flags,
-  }
+#  service { 'bgpd':
+#    ensure => $bgpd_ensure,
+#    enable => $bgpd_enable,
+#    flags  => $bgpd_flags,
+#  }
   service { 'spamd':
     ensure => $spamd_ensure,
     enable => $spamd_enable,

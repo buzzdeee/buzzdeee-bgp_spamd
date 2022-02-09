@@ -63,9 +63,9 @@ class bgp_spamd (
     spamd_alloweddomains => $spamd_alloweddomains,
   }
 
-  class { 'bgp_spamd::spamtraps':
-    spamtraps => $spamtraps,
-  }
+#  class { 'bgp_spamd::spamtraps':
+#    spamtraps => $spamtraps,
+#  }
 
   class { 'bgp_spamd::service':
     bgpd_enable     => $bgpd_enable,
@@ -81,6 +81,6 @@ class bgp_spamd (
 
   Class['bgp_spamd::config']
   ~> Class['bgp_spamd::service']
-  -> Class['bgp_spamd::spamtraps']
+#  -> Class['bgp_spamd::spamtraps']
 
 }

@@ -1,7 +1,7 @@
 # This file is managed via Puppet bgp_spamd
 
 set skip on lo
-set limit table-entries 400000
+#set limit table-entries 400000
 table <<%= @pftable %>> persist
 table <bruteforce> persist
 table <spamd-white> persist
@@ -9,25 +9,21 @@ table <spamd> persist
 table <nospamd> persist file "/etc/mail/nospamd"
 table <nobruteforce> persist file "/etc/nobruteforce"
 
-table <siphackers> const { 188.138.125.46, 176.58.71.201, 162.210.199.45, 119.235.252.189, 91.218.247.151, 64.182.128.5 }
-
 pass in log quick on egress from <nobruteforce> to self
 block log quick from <bruteforce>
 
-#block some idiots trying to brute force the asterisk
-block in quick from <siphackers> to any
 pass log                # to establish keep-state
 
 # rules for spamd(8)
 
 pass in quick on egress proto tcp from <spamd> to any port smtp \
              divert-to 127.0.0.1 port spamd
-pass in log (to pflog1) quick on egress proto tcp from <nospamd> to self port smtp
-pass in log (to pflog1) quick on egress proto tcp from <spamd-white> to self port smtp
-pass in log (to pflog1) quick on egress proto tcp from <<%= @pftable %>> to self port smtp
-pass in quick on egress proto tcp from any to self port smtp \
-    divert-to 127.0.0.1 port spamd
-pass out log (to pflog1) on egress proto tcp to any port smtp
+#pass in log (to pflog1) quick on egress proto tcp from <nospamd> to self port smtp
+#pass in log (to pflog1) quick on egress proto tcp from <spamd-white> to self port smtp
+#pass in log (to pflog1) quick on egress proto tcp from <<%= @pftable %>> to self port smtp
+#pass in quick on egress proto tcp from any to self port smtp \
+#    divert-to 127.0.0.1 port spamd
+#pass out log (to pflog1) on egress proto tcp to any port smtp
 
 # Adaptive rule to block SSH bruteforcers
 pass in log quick inet proto tcp from any to self port ssh keep state (max-src-conn 3, max-src-conn-rate 2/30, overload <bruteforce> flush global)
